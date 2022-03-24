@@ -1,9 +1,10 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 import queryString from 'query-string'
 import { useLocation } from 'react-router-dom'
 import { heroes } from '../../data/heroes'
 import { useForm } from '../../hooks/useForm'
 import { HeroCard } from '../heroes/HeroCard'
+import { getHeroesByName } from '../../selectors/getHeroesByName'
 
 export const SearchScreen = ({ history }) => {
   const location = useLocation()
@@ -12,7 +13,7 @@ export const SearchScreen = ({ history }) => {
   const [values, handleInputChange] = useForm({ superhero: q })
   const { superhero } = values
 
-  const heroesFilered = heroes
+  const heroesFilered = useMemo(() => getHeroesByName(q), [q])
 
   const handleSearch = (e) => {
     e.preventDefault()
@@ -51,7 +52,12 @@ export const SearchScreen = ({ history }) => {
         <div className='col-7'>
           <h4>Results</h4>
           <hr />
-
+          {q === '' && <div className='alert alert-info'>Search a hero</div>}
+          {q !== '' && heroesFilered.length === 0 && (
+            <div className='alert alert-danger'>
+              There is no a hero with {q}
+            </div>
+          )}
           {heroesFilered.map((hero) => (
             <HeroCard key={hero.id} {...hero} />
           ))}
