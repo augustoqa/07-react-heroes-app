@@ -9,6 +9,8 @@ describe('Pruebas en <PrivateRoute />', () => {
     },
   }
 
+  Storage.prototype.setItem = jest.fn()
+
   test('debe de mostrar el componente si esta autenticado y guardar localStorage', () => {
     const wrapper = mount(
       <MemoryRouter>
@@ -21,5 +23,6 @@ describe('Pruebas en <PrivateRoute />', () => {
     )
 
     expect(wrapper.find('span').exists()).toBe(true)
+    expect(localStorage.setItem).toHaveBeenCalledWith('lastPath', '/marvel')
   })
 })
