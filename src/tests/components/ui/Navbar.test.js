@@ -2,9 +2,9 @@ import { mount } from 'enzyme'
 import '@testing-library/jest-dom'
 import { Router } from 'react-router-dom'
 import { MemoryRouter } from 'react-router-dom'
-import { AuthContext } from '../../auth/AuthContext'
-import { Navbar } from '../../components/ui/Navbar'
-import { types } from '../../types/types'
+import { AuthContext } from '../../../auth/AuthContext'
+import { Navbar } from '../../../components/ui/Navbar'
+import { types } from '../../../types/types'
 
 describe('Pruebas en <Navbar />', () => {
   const historyMock = {
